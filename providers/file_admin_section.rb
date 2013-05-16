@@ -1,4 +1,11 @@
-use_inline_resources
+if Gem::Version.new(::Chef::VERSION) >= Gem::Version.new("11.0.0")
+	use_inline_resources
+else
+	Chef::Log.warn("** use_inline_resources not supported pre-Chef v11  **")
+	Chef::Log.warn("** manual restart of pptpd service may be neeeded   **")
+	Chef::Log.warn("** for local_ip/client_pool changes to take effect  **")
+end
+
 require 'fileutils'
 
 action :manage do
